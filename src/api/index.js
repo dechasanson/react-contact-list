@@ -1,4 +1,4 @@
-async function fetchAPI(url, method = "GET", sendData = null) {
+export const fetchAPI = async (url, method = "GET", sendData = null) => {
   const fetchOptions = {
     method: method,
     headers: {
@@ -16,7 +16,7 @@ async function fetchAPI(url, method = "GET", sendData = null) {
   const data = await response.json();
 
   return data;
-}
+};
 //Below is an example of this fetch
 // fetchAPI("https://univ-contact-book.herokuapp.com/api/contacts")
 //   .then(function (data) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { fetchAPI } from "../api";
 
@@ -9,15 +9,23 @@ const ContactForm = (props) => {
   const [contactAddress, setContactAddress] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
-  const [contactType, setContactType] = useState("");
+  const [contactType, setContactType] = useState("personal");
 
   function clearForm() {
     setContactName("");
     setContactAddress("");
     setContactEmail("");
     setContactPhone("");
-    setContactType("");
+    setContactType("personal");
   }
+
+  useEffect(() => {
+    setContactName(props.contactName || "");
+    setContactAddress(props.contactAddress || "");
+    setContactEmail(props.contactEmail || "");
+    setContactPhone(props.contactPhone || "");
+    setContactType(props.contactType || "personal");
+  }, [props.id]);
 
   return (
     <form
@@ -36,18 +44,19 @@ const ContactForm = (props) => {
         try {
           console.log(contactData);
           const newContact = await fetchAPI(
-            `https://univ-contact-book.herokuapp.com/api/contacts`,
+            "https://univ-contact-book.herokuapp.com/api/contacts",
             "POST",
             contactData
           );
           addNewContact(newContact);
           clearForm();
+          window.location.reload(false);
         } catch (error) {
           console.error(error);
         }
       }}
     >
-      {/* eventually, add a ternary here to change title to "edit contact" if editing a contact that already exists */}
+      {/* eventually, add a ternary here to change title to "edit contact" to edit a contact that already exists */}
       <h3>Create New Contact</h3>
       <label>Contact Name</label>
       <input
@@ -77,10 +86,11 @@ const ContactForm = (props) => {
         value={contactPhone}
         onChange={(event) => setContactPhone(event.target.value)}
       />
-      <label for="contactType">Contact Type</label>
+      <label htmlFor="contactType">Contact Type</label>
       <select
         name="contactType"
         id="contactType"
+        value={contactType}
         onChange={(event) => setContactType(event.target.value)}
       >
         <option value="work">Work</option>
