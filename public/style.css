@@ -29,6 +29,7 @@ header {
   grid-gap: 10px;
   background-color: white;
   font-size: 18px;
+  border-bottom: 5px solid #547899;
 }
 
 .contactForm label {
@@ -50,12 +51,15 @@ select {
   background-color: #136dc2;
   color: white;
   font-size: 18px;
+  width: 50%;
+  justify-self: center;
 }
 
 .contacts {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: auto auto;
+  margin: 10px 10px 0px 10px;
 }
 
 .contact {
@@ -74,6 +78,7 @@ select {
   margin-bottom: 5px;
   background-color: #fa6139;
   color: white;
+  font-size: 24px;
 }
 
 .contactInfo {
