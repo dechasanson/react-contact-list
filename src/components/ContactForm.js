@@ -19,6 +19,8 @@ const ContactForm = (props) => {
     setContactType("personal");
   }
 
+  console.log(props.id);
+
   useEffect(() => {
     setContactName(props.contactName || "");
     setContactAddress(props.contactAddress || "");
@@ -98,7 +100,7 @@ const ContactForm = (props) => {
         <option value="other">Other</option>
       </select>
 
-      <button>SUBMIT</button>
+      <button>ADD CONTACT</button>
     </form>
   );
 };

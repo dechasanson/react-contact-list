@@ -22,12 +22,12 @@ const ContactList = (props) => {
             style={{ border: "1px solid black" }}
           >
             <h3 id="contactName" className="contactInfo">
-              {contact.name}
+              {contact.name} ({contact.contactType})
             </h3>
             <p className="contactInfo">Phone: {contact.phoneNumber}</p>
             <p className="contactInfo">Address: {contact.address}</p>
             <p className="contactInfo">Email: {contact.email}</p>
-            <p className="contactInfo">Type: {contact.contactType}</p>
+            <div className="contactNotes">Notes about {contact.name}:</div>
             <button
               className="editContact"
               onClick={async () => {

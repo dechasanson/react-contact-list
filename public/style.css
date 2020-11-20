@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=BioRhyme+Expanded:wght@200&family=Shadows+Into+Light+Two&display=swap");
+
 * {
   border: 0;
   margin: 0;
@@ -14,12 +17,19 @@ body {
   font-family: sans-serif;
   width: 100vw;
   background-color: lightgray;
+  overflow: scroll;
 }
 
 header {
   background-color: #fa6139;
   color: white;
-  padding: 1em;
+  padding: 0.5em;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  font-family: "BioRhyme Expanded", serif;
+  text-align: center;
 }
 
 .contactForm {
@@ -27,9 +37,11 @@ header {
   grid-template-rows: repeat(7, auto);
   grid-template-columns: 250px 500px 250px;
   grid-gap: 10px;
-  background-color: white;
+  background-color: lightgray;
   font-size: 18px;
   border-bottom: 5px solid #547899;
+  margin-top: 70px;
+  padding-left: 10px;
 }
 
 .contactForm label {
@@ -53,6 +65,11 @@ select {
   font-size: 18px;
   width: 50%;
   justify-self: center;
+  border-radius: 15px;
+}
+
+.contactForm button:hover {
+  background-color: #fa6139;
 }
 
 .contacts {
@@ -93,6 +110,12 @@ select {
   box-shadow: 2px 2px 4px black;
   font-family: sans-serif;
   font-weight: bold;
+  border-radius: 15px;
+  width: 75%;
+}
+
+.contact button:hover {
+  background-color: #fa6139;
 }
 
 .editContact {
