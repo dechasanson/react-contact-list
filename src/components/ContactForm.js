@@ -3,31 +3,34 @@ import React, { useEffect, useState } from "react";
 import { fetchAPI } from "../api";
 
 const ContactForm = (props) => {
-  const { addNewContact } = props;
+  const {
+    addNewContact,
+    activeContact,
+    setActiveContact,
+    replaceContact,
+  } = props;
 
-  const [contactName, setContactName] = useState("");
-  const [contactAddress, setContactAddress] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
-  const [contactPhone, setContactPhone] = useState("");
-  const [contactType, setContactType] = useState("personal");
+  const [address, setAddress] = useState(activeContact.address);
+  const [name, setName] = useState(activeContact.name);
+  const [phoneNumber, setPhoneNumber] = useState(activeContact.phoneNumber);
+  const [email, setEmail] = useState(activeContact.email);
+  const [type, setType] = useState(activeContact.contactType);
 
   function clearForm() {
-    setContactName("");
-    setContactAddress("");
-    setContactEmail("");
-    setContactPhone("");
-    setContactType("personal");
+    setName("");
+    setAddress("");
+    setEmail("");
+    setPhoneNumber("");
+    setType("personal");
   }
 
-  console.log(props.id);
-
   useEffect(() => {
-    setContactName(props.contactName || "");
-    setContactAddress(props.contactAddress || "");
-    setContactEmail(props.contactEmail || "");
-    setContactPhone(props.contactPhone || "");
-    setContactType(props.contactType || "personal");
-  }, [props.id]);
+    setAddress(activeContact.address || "");
+    setName(activeContact.name || "");
+    setPhoneNumber(activeContact.phoneNumber || "");
+    setEmail(activeContact.email || "");
+    setType(activeContact.contactType || "personal");
+  }, [activeContact]);
 
   return (
     <form
@@ -36,71 +39,97 @@ const ContactForm = (props) => {
         event.preventDefault();
 
         const contactData = {
-          name: contactName,
-          address: contactAddress,
-          phoneNumber: contactPhone,
-          email: contactEmail,
-          contactType: contactType,
+          name: name,
+          address: address,
+          phoneNumber: phoneNumber,
+          email: email,
+          contactType: type,
         };
 
-        try {
-          console.log(contactData);
-          const newContact = await fetchAPI(
-            "https://univ-contact-book.herokuapp.com/api/contacts",
-            "POST",
+        if (activeContact.id) {
+          const result = await fetchAPI(
+            `https://univ-contact-book.herokuapp.com/api/contacts/${activeContact.id}`,
+            "PATCH",
             contactData
           );
-          addNewContact(newContact);
+          console.log(result);
+          replaceContact(activeContact, result.contact);
           clearForm();
-          window.location.reload(false);
-        } catch (error) {
-          console.error(error);
-        }
+          setActiveContact({});
+        } else
+          try {
+            const newContact = await fetchAPI(
+              "https://univ-contact-book.herokuapp.com/api/contacts",
+              "POST",
+              contactData
+            );
+            addNewContact(newContact.contact);
+            clearForm();
+          } catch (error) {
+            console.error(error);
+          }
       }}
     >
-      {/* eventually, add a ternary here to change title to "edit contact" to edit a contact that already exists */}
-      <h3>Create New Contact</h3>
+      {activeContact.id ? (
+        <h3>Edit Contact Info </h3>
+      ) : (
+        <h3>Create New Contact</h3>
+      )}
       <label>Contact Name</label>
       <input
         type="text"
         placeholder="Enter Contact Name"
-        value={contactName}
-        onChange={(event) => setContactName(event.target.value)}
+        value={name}
+        onChange={(event) => setName(event.target.value)}
       />
       <label>Contact Address</label>
       <input
         type="text"
         placeholder="Enter Contact Address"
-        value={contactAddress}
-        onChange={(event) => setContactAddress(event.target.value)}
+        value={address}
+        onChange={(event) => setAddress(event.target.value)}
       />
       <label>Contact Email</label>
       <input
         type="text"
         placeholder="Enter Contact Email"
-        value={contactEmail}
-        onChange={(event) => setContactEmail(event.target.value)}
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
       />
       <label>Contact Phone Number</label>
       <input
         type="text"
         placeholder="Enter Contact Phone Number"
-        value={contactPhone}
-        onChange={(event) => setContactPhone(event.target.value)}
+        value={phoneNumber}
+        onChange={(event) => setPhoneNumber(event.target.value)}
       />
       <label htmlFor="contactType">Contact Type</label>
       <select
         name="contactType"
         id="contactType"
-        value={contactType}
-        onChange={(event) => setContactType(event.target.value)}
+        value={type}
+        onChange={(event) => setType(event.target.value)}
       >
         <option value="work">Work</option>
         <option value="personal">Personal</option>
         <option value="other">Other</option>
       </select>
-
-      <button>ADD CONTACT</button>
+      {activeContact.id ? (
+        <>
+          <button>Submit Edits</button>
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              setActiveContact({});
+              clearForm();
+            }}
+          >
+            Cancel
+          </button>
+        </>
+      ) : (
+        <button>ADD CONTACT</button>
+      )}
     </form>
   );
 };
