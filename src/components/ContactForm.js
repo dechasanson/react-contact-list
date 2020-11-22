@@ -75,35 +75,30 @@ const ContactForm = (props) => {
       ) : (
         <h3>Create New Contact</h3>
       )}
-      <label>Contact Name</label>
       <input
         type="text"
         placeholder="Enter Contact Name"
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
-      <label>Contact Address</label>
       <input
         type="text"
         placeholder="Enter Contact Address"
         value={address}
         onChange={(event) => setAddress(event.target.value)}
       />
-      <label>Contact Email</label>
       <input
         type="text"
         placeholder="Enter Contact Email"
         value={email}
         onChange={(event) => setEmail(event.target.value)}
       />
-      <label>Contact Phone Number</label>
       <input
         type="text"
         placeholder="Enter Contact Phone Number"
         value={phoneNumber}
         onChange={(event) => setPhoneNumber(event.target.value)}
       />
-      <label htmlFor="contactType">Contact Type</label>
       <select
         name="contactType"
         id="contactType"

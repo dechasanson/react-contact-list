@@ -68,8 +68,8 @@ const App = () => {
         setContactList={setContactList}
         activeContact={activeContact}
         setActiveContact={setActiveContact}
-        filterTerm={filterTerm}
         alphaOrder={alphaOrder}
+        filterTerm={filterTerm}
       />
     </div>
   );

@@ -11,10 +11,6 @@ const Search = (props) => {
         event.preventDefault();
       }}
     >
-      <label htmlFor="keywords">
-        {" "}
-        <strong>SEARCH</strong>
-      </label>
       <input
         id="keywords"
         type="text"
