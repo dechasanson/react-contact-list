@@ -4,7 +4,7 @@ export const fetchAPI = async (url, method = "GET", sendData = null) => {
     headers: {
       "Content-Type": "application/json",
       Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlY2hhOTJAaG90bWFpbC5jb20iLCJpYXQiOjE2MDU1Nzc4NTMsImV4cCI6MTYwNjE4MjY1M30.fwbG9M6mtYX-HUdrltiMx6VPxyh6gZ4t3UtOj4EnKFk",
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlY2hhIiwiaWF0IjoxNjA2MjYyNTA5LCJleHAiOjE2MTE0NDY1MDl9.Us4U9cMiyho5h7kYvelQx9v5VdharuQZR5lN7LOt4pQ",
     },
   };
 
